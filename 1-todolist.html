@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+    <div class="container" id="box">
+        <form action="#" role="form">
+            <div class="form-group">
+                <label for="uname" class="control-label">username</label>
+                <input type="text" id="uname" class="form-control" v-model="uname"/>
+            </div>
+            <div class="form-group">
+                <label for="upwd" class="control-label">upwd</label>
+                <input type="text" id="upwd" class="form-control" v-model="upwd"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success btn-lg" @click="add" type="button">add</button>
+                <button class="btn btn-success btn-lg" type="reset">reset</button>
+            </div>
+        </form>
+        <table class="table table-bordered table-hover">
+            <caption><h2>用户信息</h2></caption>
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>密码</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="(v,k) in list">
+                <td>{{k+1}}</td>
+                <td>{{v.uname}}</td>
+                <td>{{v.upwd}}</td>
+                <td>
+                    <button
+                            class="btn btn-danger btn-sm"
+                            data-toggle="modal" data-target="#layer"
+                            @click="nowIndex=k">删除</button>
+                </td>
+            </tr>
+            <tr class="text-right" v-if="list.length!=0">
+                <td colspan="4">
+                    <button class="btn btn-danger"
+                            data-toggle="modal" data-target="#layer"
+                            @click="nowIndex=-2"
+                            >删除全部</button>
+                </td>
+            </tr>
+            <tr class="text-center text-muted" v-if="list.length==0">
+                <td colspan="4">暂无数据...</td>
+            </tr>
+        </table>
+
+        <!--模态框-->
+        <div role="dialog" class="modal fade" id="layer" :data-index="nowIndex">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                        <h3 class="modal-title">{{alertMsg}}</h3>
+                    </div>
+                    <div class="modal-body text-right">
+                        <button class="btn btn-primary btn-sm" data-dismiss="modal">取消</button>
+                        <button
+                                @click="deleteMsg(nowIndex)"
+                                class="btn btn-success btn-sm"
+                                data-dismiss="modal">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <script>
+        new Vue({
+            el:"#box",
+            data:{
+                msg:"hello vue",
+                uname:'',
+                upwd:'',
+                list:[],
+                nowIndex:-1,
+                alertMsg:'确认删除吗？'
+            },
+            methods:{
+                add:function(){
+                    this.list.push({uname:this.uname,upwd:this.upwd});
+                    this.uname='';
+                    this.upwd='';
+                },
+                deleteMsg:function(n){
+                    if(n==-2){
+                        this.alertMsg = '确认删除全部吗？';
+                        this.list.length=0;
+
+                    }else{
+                        this.list.splice(n,1);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
