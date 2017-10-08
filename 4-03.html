@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <title>路由嵌套</title>
+</head>
+<body>
+<div id="container">
+    <router-view></router-view>
+</div>
+<script>
+    var myLogin = Vue.component('login',{
+        template:`
+            <div>
+                <p>登录</p>
+                <router-link to="/mail">去邮箱页面</router-link>
+            </div>
+        `
+    });
+    var myMail = Vue.component('mail',{
+        template:`
+            <div>
+                <p>邮箱页面</p>
+                <button @click="handle">返回</button>
+                <ul>
+                    <li><router-link to="/inbox">收件箱</router-link></li>
+                    <li><router-link to="/outbox">发件箱</router-link></li>
+                </ul>
+                <router-view></router-view>
+            </div>
+        `,
+        methods:{
+            handle:function(){
+                this.$router.go(-1);
+            }
+        }
+    });
+    var inbox = Vue.component('inbox',{
+        template:`
+            <div>
+                <p>收件箱</p>
+                <ul>
+                    <li>未读邮件1</li>
+                    <li>未读邮件2</li>
+                    <li>未读邮件3</li>
+                    <li>未读邮件4</li>
+                    <li>未读邮件5</li>
+                </ul>
+            </div>
+        `
+    });
+    var outbox = Vue.component('outbox',{
+        template:`
+            <div>
+                <p>发件箱</p>
+                <ul>
+                    <li>草稿邮件1</li>
+                    <li>草稿邮件2</li>
+                    <li>草稿邮件3</li>
+                    <li>草稿邮件4</li>
+                    <li>草稿邮件5</li>
+                </ul>
+            </div>
+        `
+    });
+    new Vue({
+        router:new VueRouter({
+            routes:[
+                {path:'/login',component:myLogin},
+                {path:'/mail',component:myMail,children:[
+                    {path:'/inbox',component:inbox},
+                    {path:'/outbox',component:outbox}
+                ]},
+                {path:'*',component:myLogin}
+            ]
+        }),
+        el: "#container",
+        data: {
+            msg: "hello Vue"
+        }
+    });
+</script>
+</body>
+</html>

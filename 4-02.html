@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <title>路由页面之间的跳转</title>
+</head>
+<body>
+<div id="container">
+    <router-view></router-view>
+</div>
+<script>
+    var son1 = Vue.component('son01',{
+        template:`
+            <div>
+                <h3>son01</h3>
+                <input type="text" placeholder="请输入用户名" v-model="un"/>
+                <router-link :to="'/mySon02/'+un">去son02</router-link>
+                <a href="'#/mySon02/'+un">a标签去son02</a>
+                <button @click="toSon02">button标签去son02</button>
+            </div>
+        `,
+        data:function(){
+            return {
+                un:''
+            }
+        },
+        methods:{
+            toSon02:function(){
+                this.$router.push('/mySon02/'+this.un);
+            }
+        }
+    });
+    var son2 = Vue.component('son02',{
+        template:`
+            <div>
+                <h3>son02</h3>
+                <p>用户名：{{userName}}</p>
+            </div>
+        `,
+        data:function(){
+            return {
+                userName:''
+            }
+        },
+        mounted:function(){
+            this.userName= this.$route.params.uname;
+        }
+    });
+    var son3 = Vue.component('son03',{
+        template:`
+            <div>
+                <h3>son03</h3>
+            </div>
+        `
+    });
+    new Vue({
+        router:new VueRouter({routes:[
+            {path:'/mySon01',component:son1},
+            {path:'/mySon02/:uname',component:son2},
+            {path:'/mySon03',component:son3},
+            {path:'',component:son1},
+            {path:'*',component:son1}
+        ]}),
+        el: "#container",
+        data: {
+            msg: "hello Vue"
+        }
+    });
+</script>
+</body>
+</html>

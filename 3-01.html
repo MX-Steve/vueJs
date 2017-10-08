@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>组件间的通信</title>
+</head>
+<body>
+<div id="container">
+    <!--<h1>父组件和子组件的通信</h1>-->
+    <!--<h2>父到子</h2>-->
+    <hr/>
+    <father></father>
+    <!--<h2>子到父</h2>-->
+</div>
+<script>
+    Vue.component('father',{
+        template:`
+            <div>
+                <h1>这是我们的父组件</h1>
+                <p>子组件传来的数据为:{{res}}</p>
+                <hr/>
+                <son :send="gift" @receive="toFather"></son>
+            </div>
+        `,
+        methods:{
+            toFather:function(msg){
+                console.log('接收到子组件传来的值'+msg);
+                this.res = msg;
+            }
+        },
+        data:function(){
+            return {
+                gift:'这是一个传家宝',
+                res:''
+            }
+        }
+    });
+    Vue.component('son',{
+        template:`
+            <div>
+                <h1>这是我们的子组件</h1>
+                <p>{{"接收到父组件："+send}}</p>
+                <button @click="handleClick">传给父亲</button>
+            </div>
+        `,
+        props:['send'],
+        data:function(){
+            return {
+                message:'我得到了传家宝'
+            }
+        },
+        methods:{
+            handleClick:function(){
+                this.$emit('receive',this.message);
+            }
+        }
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "hello Vue"
+        }
+    });
+</script>
+</body>
+</html>

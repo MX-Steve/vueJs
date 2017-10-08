@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+    <style>
+        .container{
+            width:50%;
+            height:30px;
+            margin:0 auto;
+        }
+        .container a {
+            color:#000;
+            text-decoration: none;
+            padding:5px 15px;
+            border:1px solid #ddd;
+            margin:0 10px;
+        }
+        .active {
+            color:blue;
+            background:pink
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <p>{{msg}}</p>
+    <div class="container">
+        <a href="#" v-for="(tmp,k) in pages" :class="{active:isCurrent==k}" @click.prevent="change(k)">{{tmp}}</a>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "hello Vue",
+            pages:[1,2,3,4,5],
+            isCurrent:0
+        },
+        methods:{
+            change:function(k){
+                    this.isCurrent = k;
+            }
+        }
+    });
+</script>
+</body>
+</html>

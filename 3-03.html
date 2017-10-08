@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>兄弟组件通信</title>
+</head>
+<body>
+<div id="container">
+    <son01></son01>
+    <hr/>
+    <son02></son02>
+</div>
+<script>
+    var bus = new Vue();
+    Vue.component('son01',{
+        template:`
+            <div>
+                <h1>son01</h1>
+                <p>接收到02的信息：{{msgFrom02}}</p>
+                <input type="text" v-model="msg1"/>
+                <button @click="send02">给02</button>
+            </div>
+        `,
+        data:function(){
+            return {
+                msg1:'',
+                msgFrom02:''
+            }
+        },
+        methods:{
+            send02:function(){
+                bus.$emit('rev01',this.msg1);
+            }
+        },
+        mounted:function(){
+            bus.$on("rev02",msg=>{
+                this.msgFrom02 = msg;
+            });
+        }
+    });
+    Vue.component('son02',{
+        template:`
+            <div>
+                <h1>son02</h1>
+                <p>接收到01的信息{{msgFrom01}}</p>
+                <input type="text" v-model="msg2"/>
+                <button @click="send01">给01</button>
+            </div>
+        `,
+        data:function(){
+            return {
+                msgFrom01:'',
+                msg2:''
+            }
+        },
+        mounted:function(){
+            bus.$on('rev01',msg=>{
+                this.msgFrom01 = msg;
+            });
+        },
+        methods:{
+            send01:function(){
+                bus.$emit('rev02',this.msg2);
+            }
+        }
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "hello Vue"
+        }
+    });
+</script>
+</body>
+</html>

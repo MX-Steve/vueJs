@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+    <style>
+        .myColor{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <p v-if="isCreated">{{msg}}</p>
+    <hr/>
+    <h2>vue中常用的指令</h2>
+    <h4>1.循环指令</h4>
+    <ul>
+        <li v-for="(tmp,k) in arr">{{k+" : "+tmp}}</li>
+    </ul>
+    <ul>
+        <li v-for="tmp in list">{{tmp}}</li>
+    </ul>
+    <h4>2.判断指令</h4>
+    <p v-if="isMember">会员可见</p>
+    <input type="checkbox" v-model="isValid"/>同意我们的协议
+    <button v-bind:disabled="!isValid">注册</button>
+    <p v-if="answer=='a'">A</p>
+    <p v-else-if="answer=='b'">B</p>
+    <p v-else>C</p>
+    <h4>其他常用指令</h4>
+    <p>
+        <img src="img/1.jpg"/>
+        <img v-bind:src="'img/'+url"/>
+        <img :src="'img/'+url"/>
+    </p>
+    <div :style="{backgroundColor:myBG,height:h,weight:w}">
+
+    </div>
+    <button @click="change">修改背景色</button>
+    <h4>事件绑定</h4>
+    <button v-on:click="handleClick">clickMe</button>
+    <button @click="handleClick">clickMe</button>
+    <hr/>
+    <select v-on:change="selectColor">
+        <option value="red">红色</option>
+        <option value="green">绿色</option>
+        <option value="blue">蓝色</option>
+    </select>
+
+    <form v-on:submit.prevent="sendMsg">
+        <input type="checkbox"/>同意
+        <br/>
+        <button>提交</button>
+    </form>
+    <hr/>
+    <p v-bind:class="{myColor:isRed}">字体颜色会变化</p>
+</div>
+<script>
+    new Vue({
+        el: "#container",
+        data: {
+            isRed:true,
+            msg: "正在加载数据",
+            arr:[11,22,33,44,55],
+            isMember:false,
+            isValid:true,
+            answer:'b',
+            list:[],
+            isCreated:true,
+            url:'1.jpg',
+            myBG:'#f0f',
+            h:'120px',
+            w:'100%'
+
+        },
+        created:function(){
+            console.log('VUE的实例创建完毕');
+            setInterval(function(){
+                this.list=[1,2,3,43,4,5,323,23];
+                this.isCreated = false;
+            }.bind(this),1000)
+        },
+        methods:{
+            handleClick:function(){
+                console.log(1);
+            },
+            selectColor:function(e){
+                console.log( e.target.value);
+            },
+            sendMsg :function(e){
+                //e.preventDefault();
+                console.log('提交事件被触发了');
+            },
+            change:function(){
+                this.myBG='#ff0';
+            }
+        }
+    });
+</script>
+</body>
+</html>

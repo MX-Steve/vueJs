@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id="container">
+    <main-com></main-com>
+</div>
+<script>
+    Vue.component('main-com',{
+        template:`
+            <div>
+                <h1>main</h1>
+                <button @click="plus" :disabled="isV">自增</button>
+                <hr/>
+                <son :toSon="count" @custom="rev"></son>
+            </div>
+        `,
+        data:function(){
+            return {
+                count:0,
+                isV:false
+            }
+        },
+        methods:{
+            plus:function(){
+                this.count++;
+            },
+            rev:function(msg){
+               this.isV=msg;
+            }
+        }
+    });
+    Vue.component('son',{
+        template:`
+            <div>
+                <h1>son</h1>
+                <p>{{toSon}}</p>
+            </div>
+        `,
+        props:['toSon'],
+        data:function(){
+            return {
+                isValid:false
+            }
+        },
+        updated:function(){
+            console.log(this.toSon);
+            if(this.toSon>6){
+                this.isValid=true;
+                this.$emit('custom',this.isValid);
+            }
+        }
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "hello Vue"
+        }
+    });
+</script>
+</body>
+</html>

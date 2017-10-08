@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>自定义过滤器的创建和使用</title>
+</head>
+<body>
+<div id="container">
+    <h2>过滤器的创建</h2>
+    <h2>过滤器的使用</h2>
+    <p>{{price | myCurrency("@")}}</p>
+    <p>{{str | myTextTransform(false)}}</p>
+</div>
+<script>
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "hello Vue",
+            price:25,
+            str:'I am steve'
+        },
+        filters:{
+            myCurrency:function(myInput,arg){
+                return arg+myInput
+            },
+            myTextTransform:function(myInput,kind){
+                var result = '';
+                if(kind){
+                    result = myInput.toUpperCase();
+                }else{
+                    result = myInput.toLowerCase();
+                }
+                return result;
+            }
+        }
+    });
+</script>
+</body>
+</html>

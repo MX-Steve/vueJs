@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>自定义指令</title>
+</head>
+<body>
+<div id="container">
+    <h1 v-if="count<6" v-change="count">这是自定义指令</h1>
+    <button @click="add">点击</button>
+    <p>{{count}}</p>
+</div>
+<script>
+
+    new Vue({
+        el: "#container",
+        data: {
+            count : 0
+        },
+        methods:{
+            add:function(){
+                this.count++;
+                console.log(this.count);
+            }
+        },
+        directives:{
+            change:{
+                bind:function(el,bindings){
+                    console.log("指令绑定当元素上");
+                    console.log(el);
+                    console.log(bindings.value);
+                    el.innerHTML = bindings.value;
+
+                },
+                update:function(el,bindings){
+                    console.log('指令的数据有所变化');
+                    el.innerHTML = bindings.value;
+                    if(bindings.value==5){
+                        console.log('it is a test');
+                    }
+                },
+                unbind:function(){
+                    console.log('解除绑定了');
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

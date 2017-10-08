@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id="container">
+    <father></father>
+</div>
+<script>
+    Vue.component('father',{
+        template:`
+            <div>
+                <son @custom = 'rev' @loginMsg="userlogin"></son>
+                 <hr/>
+                <h1>这是主页面</h1>
+                <p>{{sonMsg}}</p>
+                <ul v-if="isLogin">
+                    <li v-for="tmp in list">{{tmp}}</li>
+                </ul>
+
+            </div>
+        `,
+        data:function(){
+            return {
+                sonMsg:'',
+                list:['slifd','23','23fsd','sdfsa',23],
+                isLogin:false
+            }
+        },
+        methods:{
+            rev:function(msg){
+                this.sonMsg = msg;
+            },
+            userlogin:function(msg){
+                this.isLogin = msg;
+            }
+        }
+    });
+    Vue.component('son',{
+        template:`
+            <div>
+                <h1>这是网页头部</h1>
+                <input type="text" v-model="mm"/>
+                <button @click="handle">发送</button>
+                <br/>
+                <button @click="login">登录</button>
+            </div>
+        `,
+        methods:{
+              handle:function(){
+                  this.$emit('custom',this.mm);
+              },
+              login:function(){
+                  this.$emit('loginMsg',this.isLogin);
+              }
+        },
+        data:function(){
+            return{
+                mm:'',
+                isLogin:true
+            }
+        }
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "hello Vue"
+        }
+    });
+</script>
+</body>
+</html>

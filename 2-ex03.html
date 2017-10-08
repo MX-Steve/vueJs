@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id="container">
+    <my-game></my-game>
+</div>
+<script>
+    Vue.component('my-game',{
+        template:`
+            <div>
+                <input type="number" placeholder="请输入数字" v-model="num"/>
+                <p>{{info}}</p>
+            </div>
+        `,
+        data:function(){
+            return {
+                num :0,
+                info:'',
+                guess:0
+            }
+        },
+        mounted:function(){
+            this.guess = Math.floor(Math.random()*100);
+        },
+        updated:function(){
+
+            if(this.num>this.guess){
+                this.info = "猜大了";
+            }else if(this.num<this.guess){
+                this.info = "猜小了";
+            }else{
+                this.info = '正确';
+            }
+        }
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "hello Vue"
+        }
+    });
+</script>
+</body>
+</html>

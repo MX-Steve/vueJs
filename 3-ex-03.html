@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id="container">
+    <chat-room></chat-room>
+</div>
+<script>
+    Vue.component('chat-room',{
+        template:`
+            <div>
+                <ul>
+                    <li v-for="tmp in list">{{tmp}}</li>
+                </ul>
+                <hr/>
+                <user-component userName="lucy" @custom="res1"></user-component>
+                <user-component userName="mike" @custom="res1"></user-component>
+            </div>
+        `,
+        data:function(){
+            return {
+                list:[]
+            }
+        },
+        methods:{
+            res1:function(msg){
+                this.list.push(msg);
+            }
+        }
+    });
+    Vue.component('user-component',{
+        template:`
+            <div>
+                <span>{{userName}}</span>:
+                <input type="text" placeholder="请输入" v-model="msg1"/>
+                <button @click="sendMsg">发送</button>
+            </div>
+        `,
+        data:function(){
+            return {
+                msg1:''
+            }
+        },
+        props:['userName'],
+        methods:{
+            sendMsg:function(){
+                this.$emit('custom',this.userName+":"+this.msg1);
+                this.msg1=''
+            }
+        }
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "hello Vue"
+        }
+    });
+</script>
+</body>
+</html>

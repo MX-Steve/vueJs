@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>组件的创建和使用</title>
+</head>
+<body>
+<div id="container">
+    <my-component2></my-component2>
+</div>
+<script>
+    Vue.component('my-component1',{
+        template:'<h1>我的组件{{msg1}}</h1>',
+        data:function(){
+            return {
+                msg1:"-第一个"
+            }
+        }
+    });
+    Vue.component('my-component2',{
+        template:`
+            <div>
+                <h1>这是一个父组件</h1>
+                <hr/>
+                <my-component1></my-component1>
+            </div>
+        `
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "hello Vue"
+        }
+    });
+</script>
+</body>
+</html>

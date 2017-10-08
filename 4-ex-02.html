@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <title></title>
+</head>
+<body>
+<div id="container">
+    <router-view></router-view>
+</div>
+<script>
+    var myList = Vue.component('product-list',{
+        template:`
+            <div>
+                <ul><li v-for="(tmp,k) in list"><router-link :to="'/detail/'+k">{{tmp}}</router-link></li></ul>
+            </div>
+        `,
+        data:function(){
+            return {
+                list:['商品1','商品2','商品3','商品4','商品5']
+            }
+        }
+    });
+    var myDetail = Vue.component('product-detail',{
+        template:`
+            <div>
+                <h3>商品详情页</h3>
+                <p>id为{{parseInt(id)+1}}的商品详情</p>
+            </div>
+        `,
+        data:function(){
+            return {
+                id:''
+            }
+        },
+        beforeMount:function(){
+            this.id = this.$route.params.id;
+        }
+    });
+    new Vue({
+        router:new VueRouter({
+            routes:[
+                {path:'/list',component:myList},
+                {path:'/detail/:id',component:myDetail},
+                {path:'',component:myList},
+                {path:'*',component:myList}
+
+            ]
+        }),
+        el: "#container",
+        data: {
+            msg: "hello Vue"
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id="container">
+    <p>{{msg}}</p>
+    <my-component v-if="isShow"></my-component>
+    <button @click="isShow = !isShow">切换是否显示</button>
+    <hr/>
+    <my-com></my-com>
+    <hr/>
+    <com01></com01>
+</div>
+<script>
+    Vue.component('com01',{
+        template:`
+            <h1 :style="{opacity:myOpacity}">这是一个一级标题</h1>
+        `,
+        data:function(){
+            return {
+                myOpacity:0
+            }
+        },
+        mounted:function(){
+            setInterval(()=>{
+                this.myOpacity +=0.02;
+                if(this.myOpacity>1){
+                    this.myOpacity = 1;
+                }
+            },500)
+        }
+    });
+
+    Vue.component('my-com',{
+        template:`
+            <div>
+                <input type="text" v-model="myAddress"/>
+                <p>{{myAddress}}</p>
+            </div>
+        `,
+        data:function(){
+            return {
+                myAddress:''
+            }
+        },
+        watch:{
+            myAddress:function(){
+                //当数据发生变化的时候要执行的操作
+                console.log(this.myAddress);
+            }
+        }
+    });
+    Vue.component('my-component',{
+        template:`
+        <div>
+            <h1>hello lifecircle</h1>
+            <button @click="handleClick">click Me</button>
+            <span>{{count}}</span>
+        </div>
+        `,
+        data:function(){
+            return {
+                count:0
+            }
+        },
+        methods:{
+            handleClick:function(){
+                console.log('按钮被点击了');
+                this.count++;
+            }
+        },
+        beforeCreate:function(){
+            console.log('准备创建组件');
+        },
+        created:function(){
+            console.log('创建组件完毕');
+        },
+        beforeMount:function(){
+            console.log('准备挂载组件');
+        },
+        mounted:function(){
+            console.log('挂载组件完毕');
+        },
+        beforeDestroy:function(){
+            console.log('准备销毁组件');
+        },
+        destroyed:function(){
+            console.log('销毁组件完毕');
+        }
+    });
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "hello Vue",
+            isShow:true
+        },
+        methods:{
+
+        }
+    });
+</script>
+</body>
+</html>

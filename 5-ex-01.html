@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <script src="js/vue-resource.js"></script>
+    <title></title>
+</head>
+<body>
+<div id="container">
+    <to-do-box></to-do-box>
+</div>
+<script>
+    var bus = new Vue();
+    Vue.component('to-do-box',{
+        template:`
+            <div>
+                <h1>待做事项列表</h1>
+                <to-do-input></to-do-input>
+                <to-do-list></to-do-list>
+            </div>
+        `
+    });
+
+    Vue.component('to-do-input',{
+        template:`
+            <div>
+                <input type="text" placeholder="请输入事情" v-model="sth"/>
+                <button @click="addMsg">Add</button>
+            </div>
+        `,
+        data:function(){
+            return {
+                sth:''
+            }
+        },
+        methods:{
+            addMsg:function(){
+                this.$http.get('data/1.php?msg='+this.sth)
+                    .then(function(response){
+                        console.log(response.data);
+                    });
+                bus.$emit('sendMsg',this.sth);
+                this.sth='';
+
+            }
+        }
+    });
+    Vue.component('to-do-list',{
+        template:`
+            <ul>
+                <to-do-item @customEvent="deleteSth" :myIndex="k" :myValue="tmp" v-for="(tmp,k) in list" :key="k"></to-do-item>
+            </ul>
+        `,
+        data:function(){
+            return {
+                list:[]
+            }
+        },
+        beforeMount:function(){
+            bus.$on('sendMsg',msg=>{
+                this.list.push(msg);
+            });
+        },
+        methods:{
+            deleteSth:function(msg){
+                this.list.splice(msg,1);
+            }
+        }
+    });
+    Vue.component('to-do-item',{
+        template:`
+            <li>
+                <button @click="deleteMsg">delete</button>
+                <span>{{myValue}}</span>
+            </li>
+        `,
+        props:['myValue','myIndex'],
+        methods:{
+            deleteMsg:function(){
+                //console.log(this.myIndex);
+                this.$emit('customEvent',this.myIndex);
+            }
+        }
+    });
+
+
+    new Vue({
+        el: "#container",
+        data: {
+            msg: "hello Vue"
+        }
+    });
+</script>
+</body>
+</html>
