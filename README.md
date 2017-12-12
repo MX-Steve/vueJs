@@ -41,3 +41,15 @@
 ### 3.循环功能 ###
 	any v-for="tmp in list"
 	any v-for="(val,index) in list"
+### 4.v-on:click 或 @click ###
+>事件修饰符
+
+	.stop - 调用 event.stopPropagation()。
+	.prevent - 调用 event.preventDefault()。
+
+### 5.属性绑定 ###
+>v-bind:src或:src
+
+	示例：
+	<h1 v-bind:class="{red:!isUserLogin}">{{msg}}</h1>
+    <p v-bind:style="{background:myColor}">lsdjflsajf;lj</p>
