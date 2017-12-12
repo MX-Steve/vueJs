@@ -28,3 +28,15 @@
 方法1：在cmd里输入：cnpm run dev
 
 方法2：在浏览里输入：localhost:8080(默认端口为8080)
+
+## 7.语法 ##
+### 1.双花括号 ###
+	<any>{{expression}}</any>
+	执行表达式，将结果输出到当前标签内
+### 2.选择功能 ###
+	v-if="expression"
+	v-else-if=""
+	v-else
+### 3.循环功能 ###
+	any v-for="tmp in list"
+	any v-for="(val,index) in list"
