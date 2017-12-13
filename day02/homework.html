@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <test-component></test-component>
+</div>
+<script>
+    Vue.component("test-component",{
+        template:`<h1 style="opacity:1">hello world</h1>`,
+        mounted:function () {
+            var op = this.$el.style.opacity;
+            setInterval(()=>{
+                op-=0.05;
+                this.$el.style.opacity = op;
+                if(op<=0){
+                    op = 1;
+                }
+            },50)
+        }
+    });
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs"
+        }
+    });
+</script>
+</body>
+</html>
