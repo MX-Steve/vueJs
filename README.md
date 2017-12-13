@@ -53,3 +53,18 @@
 	示例：
 	<h1 v-bind:class="{red:!isUserLogin}">{{msg}}</h1>
     <p v-bind:style="{background:myColor}">lsdjflsajf;lj</p>
+### 6.其他指令 ###
+>v-show
+
+	注意：没有v-hide
+>v-html="拼接好的代码片段"
+
+	model:模型，模特
+	module:模块
+>v-model
+
+	双向数据绑定:input/select/textarea
+	1.修饰符
+		.lazy：v-model.lazy='userName',用户输入完点回车后执行
+		.trim:去除开头和结尾的空格
+		.number:把字符串转化为数字

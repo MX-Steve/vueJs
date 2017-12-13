@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <form @submit.prevent="submitOrder">
+        <h1>{{msg}}</h1>
+        <!--<button v-on:click="handleClick">clickMe</button>-->
+        <!--<button @click="handleClick">clickMe</button>-->
+        <button>提交</button>
+    </form>
+
+</div>
+<script>
+    new Vue({
+        el:'#example',
+        template:"",
+        data:{
+            msg:"hello vuejs"
+        },
+        methods:{
+            handleClick:function () {
+                console.log("btn is clicked");
+                this.msg = "今天天气真好!";
+            },
+            submitOrder:function () {
+                console.log("表单提交了");
+            }
+        }
+    });
+</script>
+</body>
+</html>

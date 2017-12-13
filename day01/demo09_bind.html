@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <img src="img/1.jpg" alt="">
+    <img :src="imgUrl">
+</div>
+<script>
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs",
+            imgUrl:"img/1.jpg"
+        }
+    });
+</script>
+</body>
+</html>

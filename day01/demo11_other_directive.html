@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <button v-show="hasMore" @click="loadMore">加载更多</button>
+    <p v-show="!hasMore">没有更多数据可以加载了</p>
+    <div>{{myHeader}}</div>
+    <div v-html="myHeader"></div>
+</div>
+<script>
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs",
+            hasMore:true,
+            myHeader:"<h1>it is a header</h1>"
+        },
+        methods:{
+            loadMore:function () {
+                console.log("loadMore");
+            }
+        }
+    });
+</script>
+</body>
+</html>

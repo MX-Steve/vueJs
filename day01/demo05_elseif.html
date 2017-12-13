@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <!--<button v-if="!isUserLogin">登录</button>-->
+    <h2 v-if="rightAnswer == 'A'">A</h2>
+    <h2 v-else-if="rightAnswer == 'B'">B</h2>
+    <h2 v-else-if="rightAnswer == 'C'">C</h2>
+    <h2 v-else>D</h2>
+</div>
+<script>
+    new Vue({
+        el:'#example',
+        template:"",
+        data:{
+            rightAnswer:"D"
+        }
+    });
+</script>
+</body>
+</html>

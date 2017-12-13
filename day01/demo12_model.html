@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{userInput}}</h1>
+    <form @submit.prevent="">
+        <input type="text" v-model="userInput"><br>
+        <input type="checkbox" v-model="isAgree">是否同意
+        <br>
+        <button :disabled="!isAgree">登录</button>
+        <br>
+        <input type="text" v-model.lazy="userAddr">
+        <h3>{{"用户的地址是:"+userAddr}}</h3>
+        <hr>
+        <input type="text" v-model.number="num1">
+        <input type="text" v-model.number="num2">
+        <button @click="add">求和</button>
+        <h5>{{"结果为："+result}}</h5>
+    </form>
+</div>
+<script>
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            userInput:'',
+            msg: "hello vuejs",
+            isAgree:false,
+            userAddr:'',
+            num1:0,
+            num2:0,
+            result:0
+        },
+        methods:{
+            add(){
+                this.result = this.num1+this.num2;
+            }
+        }
+    });
+</script>
+</body>
+</html>

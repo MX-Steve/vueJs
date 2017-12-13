@@ -1,0 +1,75 @@
+一、vuejs的概述
+	GUI:graphical user interface:图形化用户界面
+	CLI:command line interface:命令行交互界面
+
+	做用户界面的框架或者库，并不一定非得是像bootstrap一样提供丰富的样式库,vuejs是通过组件来构造ui：userinterface
+
+	1.what？
+		vuejs是一个只关注视图层的渐进式的js框架.
+		渐进式：从简单的功能，逐渐到复杂的功能。
+		vuejs：react和angularjs的结合
+		不支持ie8以下版本
+	2.why?
+		1.国人开发，非常优秀
+		2.中文手册
+	3.when?
+		实现UI层，可以实现整个项目
+
+	4.how?
+		方式1：
+			直接在工程中，引入vue.js文件
+		方式2:CLI
+			1.npm install --global vue-cli ==>全局安装vue-cli
+			2.vue init webpack my-project ==>创建一个基于webpack模板的新项目
+			3.cd my-project
+			4.npm install  ==>安装依赖
+			5.npm run dev
+
+	扩展：
+		SPA单页面应用程序:single page application
+			在一个完整的工程中，只有一个完整的页面,其余的都是一些代码片段
+
+二、vuejs使用
+	1.语法：
+		1.双花括号
+			mustache{{}},	interpolation:插值表达式
+			<any>{{expression}}</any>
+			执行表达式，将结果输出到当前标签内
+		2.选择功能
+			1.基本结果：顺序、选择、循环
+			v-if="expression"==》判断是否挂载到dom树
+		3.循环功能
+			any v-for="tmp in list"
+			根据集合个数，创建元素
+			any v-for="(val,index) in list"
+
+		  数据绑定到试图：
+			可以使用{{}}、指令，将数据绑定到试图，那么当数据发生变化时，试图会自动的更新
+			思维1：DOM驱动
+			思维2：数据驱动 1.简单、2.解耦(view 和 data)
+
+			扩展：
+				1.高内聚低耦合
+					耦合度：藕断丝连，不同组件或者模块之间的关系
+					聚合度：一个组件内部之间的关系
+		4.v-on:click
+			@click
+			事件绑定
+			1.事件修饰符
+				.stop - 调用 event.stopPropagation()。
+				.prevent - 调用 event.preventDefault()。
+		5.属性绑定
+			v-bind:src
+			:src
+			v-bind:class="{myRed:expression}"
+			v-bind:style="{backgroundColor:myColor}"
+		6.其他指令
+			双向数据绑定
+				v-model
+				方向1：将 数据 绑定到  视图
+				方向2：将 视图中用户操作的结果  绑定到  数据(多数情况下，都是指的表单的操作 input/select/textarea/...)
+				1.修饰符
+					.lazy
+					.trim
+					.number
+					

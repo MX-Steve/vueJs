@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script>
+    new Vue({
+        el:'#example',
+        template:"<div>" +
+            "<h1>hello world</h1>" +
+            "<p>{{uname}}今年{{age}}岁了!</p>" +
+            "</div>",
+        data:{
+            uname:'lihan',
+            age:28
+
+        }
+    });
+</script>
+</body>
+</html>

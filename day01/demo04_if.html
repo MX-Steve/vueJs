@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <button v-if="!isUserLogin">登录</button>
+
+</div>
+<script>
+    new Vue({
+        el:'#example',
+        template:"",
+        data:{
+            isUserLogin:false
+        }
+    });
+</script>
+</body>
+</html>

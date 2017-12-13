@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <style>
+        .red{
+            color:red;
+        }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1 v-bind:class="{red:!isUserLogin}">{{msg}}</h1>
+    <p v-bind:style="{background:myColor}">lsdjflsajf;lj</p>
+</div>
+<script>
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs",
+            isUserLogin:false,
+            myColor:'red'
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <!--<button v-if="!isUserLogin">登录</button>-->
+    <ul>
+        <li v-for="tmp in list">
+            <span>{{tmp.uname +" "}}</span>
+            <span>{{tmp.age +" "}}</span>
+            <span>{{tmp.score }}</span>
+        </li>
+    </ul>
+</div>
+<script>
+    new Vue({
+        el:'#example',
+        template:"",
+        data:{
+            list:[
+                {uname:'zhangsan',age:26,score:97},
+                {uname:'z李四',age:21,score:77},
+                {uname:'王五',age:23,score:91},
+                {uname:'zhangsan2',age:20,score:87},
+                {uname:'zhangsan3',age:25,score:66}
+            ]
+        }
+    });
+</script>
+</body>
+</html>
