@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <test-component v-if="count < 5"></test-component>
+</div>
+<script>
+    Vue.component("test-component",{
+        data:function () {
+          return{
+              count:0
+          }
+        },
+        methods:{
+            handleClick:function () {
+                this.count++;
+            }
+        },
+        template:`<div>
+            <h1>hello component lifecycle</h1>
+            <p>{{count}}</p>
+            <button @click="handleClick">计数</button>
+            </div>`,
+        beforeCreate:function () {
+          console.log("before create");
+        },
+        created:function () {
+            console.log("in created hook function");
+        },
+        beforeUpdate:function () {
+            console.log("before update");
+        },
+        updated:function () {
+            console.log("updated");
+        },
+        beforeDestroy:function () {
+            console.log("before destroy");
+        },
+        destroyed:function () {
+            console.log("destroyed");
+        }
+
+    });
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs",
+            count:0
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <h2 v-if="count < 5" v-change="count">hello custom directive</h2>
+    <button @click="handleClick">改文字</button>
+</div>
+<script>
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs",
+            count:0
+        },
+        directives:{
+            change:{
+                bind:function (el) {
+//                    console.log(arguments);
+                    console.log("指令调用成功!");
+                    el.innerHTML = "hello world";
+                },
+                update:function (el,arg) {
+                    //调用指令时穿入参数，当参数发生变化时，将会执行指令内部update方法
+                    //el.innerHTML = '';
+                    console.log("in update");
+                    console.log(arg.value);
+                },
+                unbind:function () {
+                    console.log("in unbind");
+                }
+            }
+        },
+        methods:{
+            handleClick:function () {
+                this.count ++;
+            }
+        }
+    });
+</script>
+</body>
+</html>

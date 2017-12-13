@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <my-main></my-main>
+    <my-component></my-component>
+
+</div>
+<script>
+    Vue.component("myMain",{
+        template:`<div>
+            <h1>主页面标题</h1>
+            <my-footer></my-footer>
+        </div>`
+    });
+    Vue.component("myFooter",{
+        template:`<div>
+            <h1>主页面尾部</h1>
+
+        </div>`
+    });
+    new Vue({
+        el: '#example',
+        data: {
+            msg: "hello vuejs"
+        },
+        //创建的是局部组件
+        components:{
+            "my-component":{
+                template:"<h1>世界，你好!</h1>"
+            }
+        }
+    });
+</script>
+</body>
+</html>

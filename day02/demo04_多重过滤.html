@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <h3>{{outdoorAir|firstFilter|secondFilter}}</h3>
+</div>
+<script>
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs",
+            outdoorAir:"北京雾霾"
+        },
+        filters:{
+            firstFilter:function (value) {
+                return value+"已经经过第一重过滤"
+            },
+            secondFilter:function (value) {
+                return value+"已经经过第二重过滤"
+            }
+        }
+    });
+</script>
+</body>
+</html>

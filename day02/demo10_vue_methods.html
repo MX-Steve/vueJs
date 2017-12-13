@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+
+    <h1 v-change-bg-color="myColor">{{msg}}</h1>
+    <test-component></test-component>
+    <p>{{40|myCurrency}}</p>
+</div>
+<script>
+    //创建自定义指令，将传递来的参数设置成调用指令元素的背景色
+    Vue.directive("changeBgColor",{
+        bind:function (el,bindings) {
+            el.style.backgroundColor = bindings.value;
+        }
+    });
+    Vue.filter("myCurrency",function (value) {
+        return "$"+value;
+    });
+    Vue.component('test-component',{
+        template:`
+            <div>
+                <h1>hello</h1>
+                <h2>VUEJS</h2>
+            </div>
+        `
+    });
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs",
+            myColor:'blue'
+        }
+    });
+</script>
+</body>
+</html>

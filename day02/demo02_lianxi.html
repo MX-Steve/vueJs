@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <p v-change-color="bgColor">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid animi asperiores atque cumque cupiditate dolores eligendi ipsam labore, maiores nemo officia optio possimus quasi quisquam quos repellendus, sequi velit vitae.</p>
+</div>
+<script>
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs",
+            bgColor:"red"
+        },
+        directives:{
+            changeColor:{
+                bind(el,bindings){
+                    console.log("指令被绑定了");
+                    el.style.backgroundColor=bindings.value;
+                },
+                update(el,bindings){
+                    //el.style.backgroundColor=bindings.value;
+                },
+                unbind(){},
+            }
+        }
+    });
+</script>
+</body>
+</html>

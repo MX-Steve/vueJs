@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+    <style>
+        ul,li{padding:0;margin:0;list-style:none;}
+        li{
+            float:left;
+            border:1px solid #ddd;
+            padding:5px 25px;
+            color:#999;
+            cursor:pointer;
+        }
+        li.active{
+            color:#fff;
+            background:#0ff;
+        }
+    </style>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <ul>
+        <li @click="pre">上一页</li>
+
+        <li  v-for="(tmp,index) in pages" @click="changePage(index)" :class="{active:(index+1==pno)}">{{tmp}}</li>
+
+        <li @click="next">下一页</li>
+    </ul>
+</div>
+<script>
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs",
+            pages:[1,2,3,4,5],
+            pno:1
+        },
+        methods:{
+            changePage:function (index) {
+                this.pno = index+1;
+            },
+            pre:function () {
+                if(this.pno!=1){
+                    this.pno-=1;
+                }
+            },
+            next:function () {
+                if(this.pno!=this.pages.length){
+                    this.pno+=1;
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <h2>{{person1 | transformGender(true)}}</h2>
+    <h2>{{person1 | transformGender(false)}}</h2>
+    <hr>
+    <h2>{{person2 | transformGender(true)}}</h2>
+    <h2>{{person2 | transformGender(false)}}</h2>
+</div>
+<script>
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs",
+            person1:1,
+            person2:0
+        },
+        filters:{
+            transformGender:function (value,arg1) {
+                if(value==1){
+                    if(arg1==true){
+                        return "男";
+                    }else{
+                        return "boy";
+                    }
+                }else{
+                    if(arg1==true){
+                        return "女";
+                    }else{
+                        return "girl";
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
