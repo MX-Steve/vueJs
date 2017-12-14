@@ -197,4 +197,67 @@
 
 >创建组件的其他方式：
 
-        1.指定一个script标签，并指定type="text/x-template",并指定一个id="myTemplate"...
+        1.指定一个script标签，并指定type="text/x-template",并指定一个id="myTemplate". Vue.component("my-component",{template:"#myTemplate"});
+
+## 11.Vue中常用属性 ##
+
+### 1、计算属性  ###
+
+>①创建一个计算属性
+
+	new Vue({
+		computed:{
+			getNowCount:function(){
+				return **
+			}
+		}
+	})
+
+>②调用计算属性
+
+	<any>{{getNowCount}}</any>
+
+>③计算属性与普通的方法的区别
+
+	计算属性是有依赖缓存的，如果依赖的数据没有发生变化,即使调用了计算属性，也不会执行方法
+	而普通的方法就不同了，只要是调用，肯定会执行
+
+### 2、监听属性 ###
+
+如果希望在用户进行表单操作时候，可以设置一个监听属性
+>①在表单元素中指定v-model
+
+	<input type='text' v-model="myValue"/>
+
+>②在input所属的组件中 指定一个watch属性
+
+	Vue.component('',{
+		watch:{
+			myValue:function(){
+				//当数据中的myValue发生变化时，将会自动的执行该方法
+			}
+		}
+	})
+
+## 12.Vue中组件间通信 ##
+
+### 1、props down:通过属性传值 ###
+
+>①配置子组件的props
+
+	Vue.component('son',{
+		props:['userName']
+	})
+
+>②父组件中调用子组件的时候，通过属性把值传递过去
+
+	Vue.component('father',{
+		data:function(){
+			return {
+				uName:'zhangsan'
+			}
+		}
+		template:'<son :userName='uName'></son>'
+	})
+
+  
