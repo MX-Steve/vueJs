@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <ul>
+        <li v-for="tmp in myList">
+            <p>{{tmp}}</p>
+            <!--通过methods调用方法-->
+            <!--<p>{{getCount()}}</p>-->
+            <h3>{{getNowCount}}</h3>
+        </li>
+
+    </ul>
+</div>
+<script>
+    new Vue({
+        el: '#example',
+        mounted:function () {
+          console.log("Vue实例中的mounted被执行了");
+          setInterval(()=>{
+
+              this.myList.push(Math.floor(Math.random()*100+1));
+              if(this.count % 4 ==0){
+                  this.count++;
+              }
+          },500)
+        },
+        methods:{
+            getCount:function () {
+                console.log("getCount func is called!");
+                console.log(this.count);
+            }
+        },
+        template: "",
+        data: {
+            msg: "hello vuejs",
+            count:0,
+            myList:[11,22,34,544,33]
+        },
+        //计算属性
+        computed:{
+            getNowCount:function () {
+                console.log("getNowCount computed func called");
+                return this.count;
+            }
+        }
+    });
+</script>
+</body>
+</html>

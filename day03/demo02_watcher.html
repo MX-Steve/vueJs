@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <test-component></test-component>
+</div>
+<script type="text/x-template" id="myTemplate">
+    <!--当用户输入的时候，监听他输入的值-->
+    <input type="text" v-model="userInput">
+</script>
+<script>
+    Vue.component("test-component",{
+        template:"#myTemplate",
+        data:function () {
+            return{
+                userInput:'张三'
+            }
+        },
+        watch:{
+            "userInput":function (newInput) {
+                console.log(newInput);
+            }
+        }
+    });
+    new Vue({
+        el: '#example',
+        data: {
+            msg: "hello vuejs"
+        }
+    });
+</script>
+</body>
+</html>

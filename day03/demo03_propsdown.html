@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <xiaotou></xiaotou>
+</div>
+<script>
+    Vue.component("xiaotou",{
+        template:`<div>
+            <h1>这是父组件</h1>
+            <h2>==============================</h2>
+            <datou></datou>
+        </div>`
+    });
+    Vue.component("datou",{
+        template:`<div>
+            <h2>这是子组件</h2>
+        </div>`
+    });
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs"
+        }
+    });
+</script>
+</body>
+</html>
