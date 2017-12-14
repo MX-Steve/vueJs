@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <main-component></main-component>
+</div>
+<script>
+    Vue.component("main-component",{
+        data:function () {
+            return{
+                isUserLogin:false
+            }
+        },
+        methods:{
+            rcvMsg:function (isUserLogin) {
+                console.log("收到header组件的信息："+isUserLogin);
+                this.isUserLogin = isUserLogin;
+            }
+        },
+        template:`
+            <div>
+                <header-component @customEvent="rcvMsg"></header-component>
+                <h2>++++++++++++++++++++++++++++++</h2>
+                <p v-if="!isUserLogin">还没登录，去登录吧</p>
+                <div v-if="isUserLogin">
+                    <p>欢迎回来</p>
+                    <ul>
+                        <li>数据1</li>
+                        <li>数据2</li>
+                        <li>数据3</li>
+                    </ul>
+                </div>
+
+            </div>
+        `
+    });
+    Vue.component("header-component",{
+        data:function () {
+            return{
+                isUserLogin:false
+            }
+        },
+        methods:{
+            handleClick:function () {
+                this.isUserLogin = !this.isUserLogin;
+                this.$emit("customEvent",this.isUserLogin);
+            }
+        },
+        template:`
+            <div>
+                <button @click="handleClick">修改状态</button>
+            </div>
+        `
+    });
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs"
+        }
+    });
+</script>
+</body>
+</html>

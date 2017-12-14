@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <!--根组件-->
+    <xiaotou></xiaotou>
+</div>
+<script>
+    Vue.component("xiaotou",{
+        methods:{
+            rcvMsg:function (msg) {
+                console.log("小头爸爸：收到大头儿子的信息："+msg);
+            }
+        },
+        template:`
+            <div>
+                <h1>这是父组件</h1>
+                <h2>+++++++++++++++++++++++</h2>
+                <datou @sendToFather="rcvMsg"></datou>
+            </div>
+        `
+    });
+    Vue.component("datou",{
+        data:function () {
+            return{
+                num:123
+            }
+        },
+        methods:{
+            handleClick:function () {
+                this.$emit("sendToFather",this.num);
+            }
+        },
+        template:`
+            <div>
+                <h1>这是子组件</h1>
+                <button @click="handleClick">发送给小头爸爸</button>
+            </div>
+        `
+    });
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs"
+        }
+    });
+</script>
+</body>
+</html>
