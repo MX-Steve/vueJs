@@ -260,4 +260,33 @@
 		template:'<son :userName='uName'></son>'
 	})
 
-  
+
+## 13.VueRouter ##
+1.路由模块用来简建立器url地址和模板页面的映射关系  
+2.SPA：有容器，有组件，配置路由词典  
+3.步骤：
+	
+		1.引入对应的js文件
+            script src=js/vue-router.js
+        2.指定容器
+            <router-view></router-view>
+        3.创建各个业务要用到的组件
+        4.配置路由词典
+            new Vue({
+                router:new VueRouter({
+                    routes:const myRoutes = [
+                         {
+                              path:'/myLogin',
+                              component:LoginComponent
+                         },
+                         {
+                              path:'/myRegister',
+                              component:RegisterComponent
+                         }
+                    ];
+                }),
+            });
+4.vuerouter实现路由导航的常见方式  
+	
+		1.直接修改地址栏
+        2.通过js
