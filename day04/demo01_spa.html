@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+    <!--step1:引入router文件-->
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>路由</h1>
+    <!--step2:创建盛放需要加载的组件-->
+    <router-view></router-view>
+
+
+</div>
+<script>
+    //step3:创建需要用到的组件
+    let LoginComponent = Vue.component("login",{
+        methods:{
+            jump:function () {
+                //跳转到注册页面
+                console.log(this);
+                this.$router.push('/myRegister');
+            }
+        },
+        template:`
+            <div>
+                <h1>这是登录页</h1>
+                <button @click="jump">注册</button>
+            </div>
+        `
+    });
+    let RegisterComponent = Vue.component("register",{
+        template:`
+            <div>
+                <h1>这是注册页</h1>
+            </div>
+        `
+    });
+    //step4:配置路由词典
+    const myRoutes = [
+        {
+            path:"/",
+            component:LoginComponent
+        },
+        {
+            path:"/myLogin",
+            component:LoginComponent
+        },
+        {
+            path:"/myRegister",
+            component:RegisterComponent
+        }
+    ];
+    new Vue({
+        //step5:给路由模块通过route属性指定配置过的路由词典
+        router:new VueRouter({
+            routes:myRoutes
+        }),
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs"
+        }
+    });
+</script>
+</body>
+</html>
