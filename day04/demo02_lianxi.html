@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="example">
+    <!--<router-view></router-view>-->
+    <father></father>
+</div>
+<script>
+    Vue.component('father',{
+        methods:{
+            jump:function (desPath) {
+                this.$router.push(desPath);
+            }
+        },
+        template:`
+            <router-view></router-view>
+        `
+    });
+    let mainComponent = Vue.component("main-component",{
+        methods:{
+            handleClick:function () {
+                //this.$router.push("/person");
+                this.$parent.jump("/person");
+            }
+        },
+        template:`
+            <div>
+                <h1>主页面</h1>
+                <button @click="handleClick">个人中心</button>
+            </div>
+        `
+    });
+    let personComponent = Vue.component("person-component",{
+        template:`
+            <div>
+                <h1>个人中心</h1>
+                <router-link to="/setting">设置头像</router-link>
+            </div>
+        `
+    });
+    let settingComponent = Vue.component("setting-component",{
+        methods:{
+            handleClick:function () {
+                this.$router.push("/main");
+            }
+        },
+        template:`
+            <div>
+                <h1>设置页面</h1>
+                <button @click="$parent.jump('/main')">查看主页面</button>
+            </div>
+        `
+    });
+    new Vue({
+        router:new VueRouter({
+            routes:[
+                {
+                    path:'/',
+                    component:mainComponent
+                },
+                {
+                    path:'/main',
+                    component:mainComponent
+                },
+                {
+                    path:'/person',
+                    component:personComponent
+                },
+                {
+                    path:'/setting',
+                    component:settingComponent
+                },
+            ]
+        }),
+        el: '#example',
+        data: {
+            msg: "hello vuejs"
+        }
+    });
+</script>
+</body>
+</html>

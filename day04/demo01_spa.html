@@ -29,6 +29,7 @@
             <div>
                 <h1>这是登录页</h1>
                 <button @click="jump">注册</button>
+
             </div>
         `
     });
@@ -36,6 +37,10 @@
         template:`
             <div>
                 <h1>这是注册页</h1>
+                <router-link to="/myLogin">去登录吧</router-link>
+                <br>
+                <a href="#/myLogin">a标签去登录吧</a>
+
             </div>
         `
     });

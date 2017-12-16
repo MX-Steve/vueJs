@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="example">
+    <router-view></router-view>
+</div>
+<script>
+    let ListComponent = Vue.component("list-component",{
+        data:function () {
+            return {
+                list:['白菜','青菜','萝卜']
+            }
+        },
+        methods:{
+            goToDetail:function (index) {
+                this.$router.push('/detail/'+index);
+            }
+        },
+        template:`
+            <div>
+                <h1>这是列表页面</h1>
+                <ul>
+                    <li @click="goToDetail(index)" v-for="(tmp,index) in list">
+                        {{tmp}}
+                    </li>
+                </ul>
+            </div>
+        `
+    });
+    let DetailComponent = Vue.component('detail-component',{
+        data:function () {
+            return{
+                pid:0
+            }
+        },
+        created:function () {
+            this.pid = this.$route.params.pid;
+
+        },
+        template:`
+            <div>
+                <h1>这里是详情页面</h1>
+                <p>{{"这是商品"+pid}}</p>
+            </div>
+        `
+    });
+    new Vue({
+
+        router:new VueRouter({
+            routes:[
+                {
+                    path:'/',
+                    component:ListComponent
+                },
+                {
+                    path:'/list',
+                    component:ListComponent
+                },
+                {
+                    path:'/detail/:pid',
+                    component:DetailComponent
+                },
+            ]
+        }),
+        el: '#example',
+        data: {
+            msg: "hello vuejs"
+        }
+    });
+</script>
+</body>
+</html>

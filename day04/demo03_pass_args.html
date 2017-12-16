@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="example">
+    <router-view></router-view>
+</div>
+<script>
+    let LoginComponent = Vue.component('login-component',{
+        data:function () {
+            return {
+                uname:''
+            }
+        },
+        methods:{
+            jumpToMain:function () {
+                this.$router.push("/main"+"/"+this.uname);
+            }
+        },
+        template:`
+            <div>
+                <h1>这是登录页面</h1>
+                <input type="text" v-model="uname">
+                <button @click="jumpToMain">登录</button>
+                <router-link :to="'/main/'+uname">跳转到主页面</router-link>
+            </div>
+        `
+    });
+    let MainComponent = Vue.component('main-component',{
+        data:function () {
+            return{
+                uName:''
+            }
+        },
+        methods:{
+            goBack:function () {
+                console.log("go back func is called");
+                this.$router.go(-1);
+            }
+        },
+        created:function () {
+            this.uName = this.$route.params.uName;
+        },
+        template:`
+            <div>
+                <h1>这是主页面</h1>
+                <button @click="goBack">退出登录</button>
+                <p>{{"欢迎登录:"+uName}}</p>
+            </div>
+        `
+    });
+
+    new Vue({
+        router:new VueRouter({
+            routes:[
+                {
+                    path:"/",
+                    component:LoginComponent
+                },
+                {
+                    path:"/login",
+                    component:LoginComponent
+                },
+                {
+                    path:"/main/:uName",
+                    component:MainComponent
+                },
+            ]
+        }),
+        el: '#example',
+        data: {
+            msg: "hello vuejs"
+        }
+    });
+</script>
+</body>
+</html>
