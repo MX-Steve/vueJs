@@ -353,3 +353,19 @@
 			{path:"/inbox",component:InboxComponent}
 		]
 	}
+
+## 17.vue中处理与远程服务器端的方式 ##
+
+>提示：获取假的json数据 http://jsonplaceholder.typicode.com/users
+
+### 步骤： ###
+
+#### ①引入对应的vue-resourse.js ####
+
+#### ②直接发起网络请求 ####
+
+	this.$http
+        .get(url)
+        .then(function(response){
+            //response.data
+        });
