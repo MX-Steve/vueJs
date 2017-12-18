@@ -311,3 +311,45 @@
 	③根据路由地址，从路由词典中找要加载的模板页面地址
 	④发起ajax请求，将加载来的模板页面 插入到 指定的容器中
 
+## 15.导航 ##
+
+### 1.直接修改地址栏 ###
+	
+### 2.js ###
+	
+	this.$router.push("路由地址");
+	this.$router.go(-1);
+
+### 4.自定义标签 ###
+
+	router-link to="路由地址"
+
+## 16.传参 ##
+
+### ①明确发送和接收方 ###
+
+### ②配置接收方的路由地址 ###
+
+	{path:"/detail/:pid",component:DetailComponent}
+
+### ③接收参数 ###
+
+	this.$route.params.pid
+
+### ⑤发送参数 ###
+
+	this.$router.push("路由地址/"+this.pid);
+	router-link :to="pid"
+
+## 16.嵌套 ##
+
+### ①在准备嵌套其他页面的页面中，指定一个router-view ###
+
+### ②children ###
+
+	{path:"/mail",component:MailComponent,
+		children:[
+			{path:"/",component:InboxComponent}
+			{path:"/inbox",component:InboxComponent}
+		]
+	}
