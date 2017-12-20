@@ -1,0 +1,38 @@
+1.vue中处理与远程服务器端的方式：网络请求vue-resource
+    1. http://jsonplaceholder.typicode.com/users
+    步骤：
+        ①引入对应的vue-resourse.js
+        ②直接发起网络请求
+            this.$http
+                .get(url)
+                .then(function(response){
+                    //response.data
+                });
+
+2.项目讲解
+    1.什么是源代码管理？
+        git：分布式
+        svn：集中式
+				版本控制
+		2.vsc设置字体
+			文件==>首选项==>终端字体==>设置想要的字体大小
+		3.创建应用，如何使用vueresource
+			①找到src目录下的main.js
+			② import VueResource from 'vue-resource'
+				Vue.use(VueResource);
+			③this.$http.get(url)
+				.then(function(response){
+					//response.data;
+				});
+		
+		5.单文件组件嵌套其他组件的方式：
+			例：比如在MyList中嵌套MyHeader
+			1.找到列表的组件类
+				在script中，引入要嵌套的组件类
+				import MyHeader from "@/components/demos/header"
+			2.在当前的组件类中，把要嵌套的组件设置为局部组件
+				components:{
+					customHeader:MyHeader
+				}
+			3.调用组件
+				<custom-header></custom-header>

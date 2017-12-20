@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-resource.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <my-component></my-component>
+</div>
+<script>
+    var MyComponent = Vue.component("my-component",{
+        data:function () {
+            return {
+                myList:[]
+            }
+        },
+        methods:{
+            loadData:function () {
+                this.$http
+                    .get("http://jsonplaceholder.typicode.com/users")
+                    //.then(function (response) {
+                    .then((response) => {
+                        this.myList = response.data;
+                        console.log(this.myList);
+                    });
+            }
+        },
+        template:`
+            <ul>
+                <li v-for="tmp in myList">{{tmp.name}}</li>
+                <li>
+                    <button @click="loadData">加载更多</button>
+                </li>
+            </ul>
+        `
+    });
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs"
+        }
+    });
+</script>
+</body>
+</html>

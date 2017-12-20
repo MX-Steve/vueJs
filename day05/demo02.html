@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-resource.js"></script>
+</head>
+<body>
+<div id="example">
+    <h1>{{msg}}</h1>
+    <my-component></my-component>
+</div>
+<script>
+    Vue.component("my-component",{
+        data:function () {
+            return{
+                myList:[]
+            }
+        },
+        methods:{
+            loadMore:function () {
+                this.$http.get("data/stus.php")
+                    .then(function (response) {
+                        this.myList = response.data;
+                    });
+            }
+        },
+        template:`
+            <div>
+                <ul>
+                    <li v-for="tmp in myList">
+                        <h1>{{tmp.uid}}</h1>
+                        <h2>{{tmp.uname}}</h2>
+                        <p>{{tmp.age}}</p>
+                    </li>
+                    <li>
+                        <button @click="loadMore">加载更多</button>
+                    </li>
+                </ul>
+            </div>
+        `
+    });
+    new Vue({
+        el: '#example',
+        template: "",
+        data: {
+            msg: "hello vuejs"
+        }
+    });
+</script>
+</body>
+</html>

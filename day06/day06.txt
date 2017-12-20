@@ -1,0 +1,40 @@
+思路：
+	将add按钮按下时，输入框中的数据，发给toDoBox
+
+项目总结：
+	1.login
+		基本指令、跨域处理（后台 header：access-controller-allow-origin）
+		vueresource(安装、引入、使用插件 import，
+		Vue.use())
+	2.main
+		路由嵌套：router-view children
+		路由匹配规则 / /login *
+		如果需要使用bootstrap，
+		首先在assets目录创建对应的文件夹css fonts，将对应的文件放入
+		要记得在main.js中 去引入 
+		import './assets/css/bootstrap.css'
+
+		webpack.base.conf.js
+		
+		vue项目引入了webpack进行打包和处理，如果需要配置webpack，到功能的根目录中有一个build文件夹 webpack.base.conf.js
+		如：想要支持ico结尾的文件，(|ico)
+	3.chart
+		jquery.flot.js
+			getRandomData(),指定一个容器，var plot = $.plot();
+			plot.setData();//设置属性
+			plot.draw();//绘制
+			启动定时器，更新数据
+			组件被销毁时，要去做一些清理工作，比如结束定时器，清空数据，释放存储空间
+	
+	4.productlist
+		分页功能
+			根据服务器端返回的页码总数，来决定显示分页，支持点击上一页、下一页
+		动态样式
+			v-bind:class="{active:true}"
+			v-bind:style="{color:myColor}"
+		图片显示
+			法1.把图片放在assets里
+			<img :src="require('src/'+myImgUrl)">
+
+			法2.把图片放入static里
+			<img :src="myUrl" alt="">

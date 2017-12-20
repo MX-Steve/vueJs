@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="example">
+	<router-view></router-view>
+</div>
+<script>
+    var LoginComponent = Vue.component("login-component",{
+        data:function () {
+			return {
+			    myName:''
+			}
+        },
+		methods:{
+            handleClick:function () {
+                //登录到mail页面
+				this.$router.push("/mail/"+this.myName);
+            }
+		},
+        template:`<div>
+				<h1>这是登录页面</h1>
+				<input type="text" v-model="myName">
+				<br>
+				<button @click="handleClick">登录</button>
+			</div>`
+
+    });
+    var MailComponent = Vue.component("mail-component",{
+        data:function () {
+			return{
+			    userName:""
+			}
+        },
+        created:function () {
+			this.userName = this.$route.params.uName;
+        },
+		methods:{
+            jump:function (desPath) {
+				this.$router.push(desPath);
+            }
+		},
+        template:`<div>
+				<h1>这是邮箱页面</h1>
+				<h3>欢迎回来:{{userName}}</h3>
+				<button @click="jump('/inbox')">收件箱</button>
+				<button @click="jump('/outbox')">发件箱</button>
+				<button @click="jump('/trashbox')">垃圾箱</button>
+				<h3>+++++++++++++++++++++++++++++++++++++++++++</h3>
+				<router-view></router-view>
+			</div>`
+
+    });
+    var InboxComponent = Vue.component("inbox-component",{
+        template:`
+        	<div>
+        		<h2>收件箱页面</h2>
+        		<ul>
+					<li>收件1</li>
+					<li>收件2</li>
+					<li>收件3</li>
+					<li>收件4</li>
+        		</ul>
+			</div>
+        `
+	});
+    var OutboxComponent = Vue.component("outbox-component",{
+        template:`
+        	<div>
+        		<h2>发件箱页面</h2>
+        		<ul>
+					<li>已发邮件1</li>
+					<li>已发邮件2</li>
+					<li>已发邮件3</li>
+					<li>已发邮件4</li>
+        		</ul>
+			</div>
+        `
+    });
+    var TrashboxComponent = Vue.component("trashbox-component",{
+        template:`
+        	<div>
+        		<h2>垃圾箱页面</h2>
+        		<ul>
+					<li>垃圾邮件1</li>
+					<li>垃圾邮件2</li>
+					<li>垃圾邮件3</li>
+					<li>垃圾邮件4</li>
+        		</ul>
+			</div>
+        `
+    });
+    var NotFoundComponent = Vue.component("not-found",{
+        template:`<div>
+				<h1>404 page not found</h1>
+
+			</div>`
+
+    });
+    new Vue({
+        el:"#example",
+        router:new VueRouter({
+            routes:[
+                {path:"/",component:LoginComponent},
+                {path:"/login",component:LoginComponent},
+                {path:"/mail/:uName",component:MailComponent,
+					children:[
+						{path:'/',component:InboxComponent},
+						{path:'/inbox',component:InboxComponent},
+						{path:'/outbox',component:OutboxComponent},
+						{path:'/trashbox',component:TrashboxComponent}
+					]
+				},
+                {path:"*",component:NotFoundComponent}
+            ],
+
+    	})
+    });
+</script>
+</body>
+</html>
